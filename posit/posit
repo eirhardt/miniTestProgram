@@ -28,4 +28,18 @@
 #include "math_frac.hpp"
 #include "math_next.hpp"
 
+#include "jack_settings.hpp"
+
+namespace posit_shape {
+    const uint es = UNUM_ES_SIZE;
+    const uint nbits = UNUM_NBIT_SIZE;
+}
+namespace quire_shape {
+    const uint es = UNUM_ES_SIZE;
+    const uint nbits = UNUM_NBIT_SIZE;
+    const uint capacity = UNUM_QUIRE_CAPACITY;
+}
+typedef sw::unum::posit<posit_shape::nbits, posit_shape::es> positX;
+typedef sw::unum::quire<quire_shape::nbits, quire_shape::es> quireX;
+
 #endif
