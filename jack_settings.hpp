@@ -13,7 +13,7 @@
 
 //manipulate the size of the posit/quire
 #define UNUM_NBIT_SIZE 16
-#define UNUM_ES_SIZE 0
+#define UNUM_ES_SIZE 1
 #define UNUM_QUIRE_CAPACITY 10
 
 
