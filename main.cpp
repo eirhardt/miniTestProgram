@@ -20,11 +20,14 @@ int main() {
 
     std::cout << "testSumQuire1 == " << testSumQuire1 << std::endl;
     std::cout << "testSumQuire1AsPosit == " << testSumQuire1AsPosit << std::endl;
-    testSumQuire1 += sw::unum::quire_mul(acoefsiValue, xcoefsAcolsIValue);
+    for (int i = 0; i < 1000; i++) {
+        testSumQuire1 += sw::unum::quire_mul(acoefsiValue, xcoefsAcolsIValue);
+        std::cout << "testSumQuire1 after a += sw::unum::quire_mul() has run: " << testSumQuire1 << std::endl;
+        testSumQuire1AsPosit.convert(testSumQuire1.to_value());
+        std::cout << "testSumQuire1AsPosit == " << testSumQuire1AsPosit << std::endl;
+    }
 
-    std::cout << "testSumQuire1 after a += sw::unum::quire_mul() has run: " << testSumQuire1 << std::endl;
-    testSumQuire1AsPosit.convert(testSumQuire1.to_value());
-    std::cout << "testSumQuire1AsPosit == " << testSumQuire1AsPosit << std::endl;
+
 
 
     return 0;
