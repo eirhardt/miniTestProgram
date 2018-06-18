@@ -10,25 +10,17 @@
 
 
 int main() {
-    quireX testSumQuire1 = -8.10623e-06;
-    positX testSumQuire1AsPosit;
-    testSumQuire1AsPosit.convert(testSumQuire1.to_value());
 
-    positX acoefsiValue = -0.00828552; //Acoefs[i]
-    positX xcoefsAcolsIValue = 0.000999451; //xcoefs[Acols[i]]
-
-
-    std::cout << "testSumQuire1 == " << testSumQuire1 << std::endl;
-    std::cout << "testSumQuire1AsPosit == " << testSumQuire1AsPosit << std::endl;
-    for (int i = 0; i < 1000; i++) {
-        testSumQuire1 += sw::unum::quire_mul(acoefsiValue, xcoefsAcolsIValue);
-        std::cout << "testSumQuire1 after a += sw::unum::quire_mul() has run: " << testSumQuire1 << std::endl;
-        testSumQuire1AsPosit.convert(testSumQuire1.to_value());
-        std::cout << "testSumQuire1AsPosit == " << testSumQuire1AsPosit << std::endl;
-    }
-
-
-
-
+    quireX sum = 2.6226e-05;
+    positX sumAsPosit;
+    positX argA = -0.016571;
+    positX argB = 0.000999451;
+    sumAsPosit.convert(sum.to_value());
+    std::cout << "sum = " << sum << std::endl;
+    std::cout << "sumAsPosit = " << sumAsPosit << std::endl;
+    sum += sw::unum::quire_mul(argA, argB);
+    std::cout << "sum after += == " << sum << std::endl;
+    sumAsPosit.convert(sum.to_value());
+    std::cout << "sum after +=(as posit) == " << sumAsPosit << std::endl;
     return 0;
 }
