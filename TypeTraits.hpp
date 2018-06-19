@@ -30,7 +30,7 @@
 //@HEADER
 
 #include <complex>
-#include <posit>
+#include <posit/posit>
 #include <main.cpp>
 #ifdef HAVE_MPI
 #include <mpi.h>
