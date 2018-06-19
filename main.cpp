@@ -10,31 +10,26 @@
 
 
 #include "jack_settings.hpp"
-
-#include <outstream.hpp>
+#include <utils/outstream.hpp>
 
 #ifdef HAVE_MPI
 #include <mpi.h>
 #endif
 
-#include <Box.hpp>
-#include <BoxPartition.hpp>
-#include <box_utils.hpp>
-#include <Parameters.hpp>
-#include <utils.hpp>
-#include <driver.hpp>
-#include <YAML_Doc.hpp>
+#include "Box.hpp"
+#include <utils/Parameters.hpp>
+#include <utils/utils.hpp>
+#include <utils/mytimer.hpp>
+#include "YAML_Doc.hpp"
+#include "BoxPartition.hpp"
+#include "box_utils.hpp"
+#include "driver.hpp"
 
-#if MINIFE_INFO != 0
-#include <miniFE_info.hpp>
-#else
-#include <miniFE_no_info.hpp>
-#endif
 
 //The following macros should be specified as compile-macros in the
 //makefile. They are defaulted here just in case...
 #ifndef MINIFE_SCALAR
-#define MINIFE_SCALAR double
+#define MINIFE_SCALAR positX;
 #endif
 #ifndef MINIFE_LOCAL_ORDINAL
 #define MINIFE_LOCAL_ORDINAL int
@@ -111,7 +106,7 @@ int main(int argc, char** argv) {
     osstr << ".";
     if (params.name != "") osstr << params.name << ".";
 
-    YAML_Doc doc("miniFE", MINIFE_VERSION, ".", osstr.str());
+    YAML_Doc doc("miniFE", "Jack.0", ".", osstr.str());
     if (myproc == 0) {
         add_params_to_yaml(doc, params);
         add_configuration_to_yaml(doc, numprocs, params.numthreads);
@@ -183,17 +178,17 @@ void add_configuration_to_yaml(YAML_Doc& doc, int numprocs, int numthreads)
     doc.get("Global Run Parameters")->add("number of processors", numprocs);
 
     doc.add("Platform","");
-    doc.get("Platform")->add("hostname",MINIFE_HOSTNAME);
-    doc.get("Platform")->add("kernel name",MINIFE_KERNEL_NAME);
-    doc.get("Platform")->add("kernel release",MINIFE_KERNEL_RELEASE);
-    doc.get("Platform")->add("processor",MINIFE_PROCESSOR);
+    doc.get("Platform")->add("hostname","Jack's Laptop");
+    doc.get("Platform")->add("kernel name","Irrelevant");
+    doc.get("Platform")->add("kernel release","Irrelevant");
+    doc.get("Platform")->add("processor","i7");
 
     doc.add("Build","");
-    doc.get("Build")->add("CXX",MINIFE_CXX);
+    doc.get("Build")->add("CXX","C++");
 #if MINIFE_INFO != 0
     doc.get("Build")->add("compiler version",MINIFE_CXX_VERSION);
 #endif
-    doc.get("Build")->add("CXXFLAGS",MINIFE_CXXFLAGS);
+    doc.get("Build")->add("CXXFLAGS","Unimportant");
     std::string using_mpi("no");
 #ifdef HAVE_MPI
     using_mpi = "yes";
