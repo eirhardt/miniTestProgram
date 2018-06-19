@@ -23,4 +23,5 @@ int main() {
     sumAsPosit.convert(sum.to_value());
     std::cout << "sum after +=(as posit) == " << sumAsPosit << std::endl;
     return 0;
+    //Test github commit for Slack bot.
 }
