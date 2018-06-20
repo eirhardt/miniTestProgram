@@ -35,8 +35,8 @@
 #include <ELLMatrix.hpp>
 
 #include <algorithm>
-#include <analytic_soln.hpp>
-#include "posit"
+#include <fem/analytic_soln.hpp>
+#include "posit/posit"
 
 template<typename GlobalOrdinal>
 void sort_if_needed(GlobalOrdinal* list,

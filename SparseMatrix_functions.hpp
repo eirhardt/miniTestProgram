@@ -41,8 +41,10 @@
 #include <MatrixInitOp.hpp>
 #include <MatrixCopyOp.hpp>
 #include <exchange_externals.hpp>
-#include <mytimer.hpp>
+#include <utils/mytimer.hpp>
 #include "jack_settings.hpp"
+#include "simple_mesh_description.hpp"
+#include "MatrixInitOp.hpp"
 
 #ifdef MINIFE_HAVE_TBB
 #include <LockingMatrix.hpp>
