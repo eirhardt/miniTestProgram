@@ -43,8 +43,6 @@
 #include <exchange_externals.hpp>
 #include <utils/mytimer.hpp>
 #include "jack_settings.hpp"
-#include "simple_mesh_description.hpp"
-#include "MatrixInitOp.hpp"
 
 #ifdef MINIFE_HAVE_TBB
 #include <LockingMatrix.hpp>
@@ -511,47 +509,40 @@ sum_into_global_linear_system(ElemData<GlobalOrdinal,Scalar>& elem_data,
         ScalarType* ycoefs = &y.coefs[0];
         ScalarType beta = 0;
 #if USES_QUIRE
-        positX posit_result = 0;
-        quireX result = 0;
-        positX testCompare = -1.0;
-        quireX tempQuire;
-        quireX tempQuireMult;
-        positX tempQuireMultholder;
-
-        quireX sumHolder;
-        positX sumHolderPosit;
-
-
+        magnitude result;
+        quireX resultAsQuire;
+        valueX resultValueX(0.0f);
+        resultAsQuire = resultValueX;
 
         for(int row=0; row<n; ++row) {
-            quireX sum = sw::unum::quire_mul(beta, ycoefs[row]);
+            quireX sum;
+            valueX sumVal(0.0f);
+            sum = sumVal;
 
             for(LocalOrdinalType i=Arowoffsets[row]; i<Arowoffsets[row+1]; ++i) {
-
+                positX tempValue;
+                tempValue.convert(sum.to_value());
+                if (row >= 266 && row <= 268) { //I know that the incorrect values appears when the row gets to be 266
+                    std::cout << " Row = " << row << ", i = " << i << ", tempValue = " << tempValue << std::endl;
+                    std::cout << " taking " << tempValue << " += quire_mul(" << Acoefs[i] << ", " << xcoefs[Acols[i]] << ") (which equals " << sw::unum::quire_mul(Acoefs[i], xcoefs[Acols[i]]) << ") " << std::endl;
+                }
                 sum += sw::unum::quire_mul(Acoefs[i], xcoefs[Acols[i]]);
-
+                tempValue.convert(sum.to_value());
+                if (row >= 266 && row <= 268) {
+                    std::cout << "Row = " << row << ", i = " << i << ", tempValue after += " << tempValue << std::endl;
+                }
             }
             positX tempSum;
             tempSum.convert(sum.to_value());
             ycoefs[row] = tempSum;
-
-            positX oldResult;
-            positX newResult;
-
-            oldResult.convert(result.to_value()); //set a temp Scalar = result
-
-            result += sw::unum::quire_mul(xcoefs[row], tempSum); //update the value of result (a Quire)
-            newResult.convert(result.to_value()); //snapshot the accumulated result in a value called tempResult (a posit)
-            //to summarize, result has been snap-shotted before and after an accumulation has occured.
+            valueX resultValueX = sw::unum::quire_mul(xcoefs[row], tempSum);
+            resultAsQuire += resultValueX;
 
         }
-        std::cout << "(matvec_and_dot) result (as quire):  = " << result << std::endl;
-        posit_result.convert(result.to_value());
-        std::cout << "(matvec_and_dot) result (as posit):  = " << posit_result << std::endl;
-
-
-        return posit_result;
+        result.convert(resultAsQuire.to_value());
+        return result;
 #else
+        //proceed with non-quire implementation
         magnitude result = 0;
 
       for(int row=0; row<n; ++row) {
@@ -559,21 +550,12 @@ sum_into_global_linear_system(ElemData<GlobalOrdinal,Scalar>& elem_data,
 
         for(LocalOrdinalType i=Arowoffsets[row]; i<Arowoffsets[row+1]; ++i) {
           sum += Acoefs[i]*xcoefs[Acols[i]];
-          if (row > 263 && row < 269) {
-                    std::cout <<"Row is " << row << ". Acoefs[" << row << "] = " << Acoefs[i] <<", xcoefs[Acols[i]] = " << xcoefs[Acols[i]] << std::endl;
-                }
-#if MINIFE_DEBUG
-               //std::cout << "Acoefs[i] (" << Acoefs[i] << ") * xcoefs[Acols[i]] (" << xcoefs[Acols[i]] << ") = " << Acoefs[i]*xcoefs[Acols[i]]<< std::endl;
-               //std::cout << "Same, but using quire_mul this time: " << tempQuire << std::endl;
-#endif
 
         }
-//            std::cout << "sum = " << sum << std::endl;
 
         ycoefs[row] = sum;
         ScalarType tempScalar = result;
         result += xcoefs[row]*sum;
-        std::cout << result << " = (result + (xcoefs[row] * sum)) == (" << tempScalar << " + (" << xcoefs[row] << " * " << sum << ") " << std::endl;
       }
 
 #ifdef HAVE_MPI
@@ -587,7 +569,7 @@ sum_into_global_linear_system(ElemData<GlobalOrdinal,Scalar>& elem_data,
 #endif
     }
 
-//-------------------------------------------------------------------------
+//------------------------------------------------------------------------
 //Compute matrix vector product y = A*x where:
 //
 // A - input matrix

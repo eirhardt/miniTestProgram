@@ -12,6 +12,7 @@
 #include "posit_manipulators.hpp"
 #include "posit_functions.hpp"
 #include "quire.hpp"
+#include "jack_settings.hpp"
 
 // math functions
 #include "math_truncate.hpp"
@@ -28,8 +29,6 @@
 #include "math_frac.hpp"
 #include "math_next.hpp"
 
-#include "jack_settings.hpp"
-
 namespace posit_shape {
     const uint es = UNUM_ES_SIZE;
     const uint nbits = UNUM_NBIT_SIZE;
@@ -39,7 +38,13 @@ namespace quire_shape {
     const uint nbits = UNUM_NBIT_SIZE;
     const uint capacity = UNUM_QUIRE_CAPACITY;
 }
+
+namespace value_shape {
+    const uint frac = 2 * (UNUM_NBIT_SIZE - 2 - UNUM_ES_SIZE);
+}
+
 typedef sw::unum::posit<posit_shape::nbits, posit_shape::es> positX;
 typedef sw::unum::quire<quire_shape::nbits, quire_shape::es> quireX;
+typedef sw::unum::value<value_shape::frac> valueX;
 
 #endif

@@ -59,17 +59,16 @@
 #include <imbalance.hpp>
 #include <cg_solve.hpp>
 #include "jack_settings.hpp"
+#include "TypeTraits.hpp"
+
 #if MINIFE_KERNELS != 0
 #include <time_kernels.hpp>
 #endif
-#include <outstream.hpp>
-#include <utils.hpp>
-#include <mytimer.hpp>
+#include <utils/outstream.hpp>
+#include <utils/utils.hpp>
+#include <utils/mytimer.hpp>
 #include <YAML_Doc.hpp>
 
-#ifdef HAVE_MPI
-#include <mpi.h>
-#endif
 
 #define RUN_TIMED_FUNCTION(msg, fn, time_inc, time_total) \
 {                                   \
@@ -300,8 +299,11 @@ namespace miniFE {
                 verify_whole_domain = true;
 #endif
                 if (myproc == 0) {
-                    if (verify_whole_domain) std::cout << "verifying solution..." << std::endl;
-                    else std::cout << "verifying solution at ~ (0.5, 0.5, 0.5) ..." << std::endl;
+                    if (verify_whole_domain) {
+                        std::cout << "verifying solution..." << std::endl;
+                    } else {
+                        std::cout << "verifying solution at ~ (0.5, 0.5, 0.5) ..." << std::endl;
+                    }
                 }
                 verify_result = verify_solution(mesh, x, tolerance, verify_whole_domain);
             }

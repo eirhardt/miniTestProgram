@@ -38,7 +38,7 @@
 #endif
 
 #include <TypeTraits.hpp>
-#include <Parameters.hpp>
+#include <utils/Parameters.hpp>
 
 namespace miniFE {
 

@@ -31,130 +31,132 @@
 
 #include <complex>
 #include <posit/posit>
-#include <main.cpp>
+
 #ifdef HAVE_MPI
 #include <mpi.h>
 #endif
 
+namespace miniFE {
 
-template<typename T> struct TypeTraits {};
+    template<typename T> struct TypeTraits {};
 
-template<>
-struct TypeTraits<positX> {
-    typedef positX magnitude_type;
+    template<>
+    struct TypeTraits<positX> {
+        typedef positX magnitude_type;
 
-    static const char* name() {
-        return "posit<x,y>" ;
-    }
-
-#ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return BROKEN;}
-#endif
-};
-
-template<>
-struct TypeTraits<float> {
-    typedef float magnitude_type;
-
-    static const char* name() {return "float";}
+        static const char* name() {
+            return "posit<x,y>" ;
+        }
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_FLOAT;}
+        static MPI_Datatype mpi_type() {return BROKEN;}
 #endif
-};
+    };
 
-template<>
-struct TypeTraits<double> {
-    typedef double magnitude_type;
+    template<>
+    struct TypeTraits<float> {
+        typedef float magnitude_type;
 
-    static const char* name() {return "double";}
+        static const char* name() {return "float";}
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_DOUBLE;}
+        static MPI_Datatype mpi_type() {return MPI_FLOAT;}
 #endif
-};
+    };
 
-template<>
-struct TypeTraits<int> {
-    typedef int magnitude_type;
+    template<>
+    struct TypeTraits<double> {
+        typedef double magnitude_type;
 
-    static const char* name() {return "int";}
+        static const char* name() {return "double";}
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_INT;}
+        static MPI_Datatype mpi_type() {return MPI_DOUBLE;}
 #endif
-};
+    };
 
-template<>
-struct TypeTraits<long int> {
-    typedef long int magnitude_type;
+    template<>
+    struct TypeTraits<int> {
+        typedef int magnitude_type;
 
-    static const char* name() {return "long int";}
+        static const char* name() {return "int";}
+
+#ifdef HAVE_MPI
+        static MPI_Datatype mpi_type() {return MPI_INT;}
+#endif
+    };
+
+    template<>
+    struct TypeTraits<long int> {
+        typedef long int magnitude_type;
+
+        static const char* name() {return "long int";}
 
 #ifdef HAVE_MPIF
-    static MPI_Datatype mpi_type() {return MPI_LONG;}
+        static MPI_Datatype mpi_type() {return MPI_LONG;}
 #endif
-};
+    };
 
 #ifndef MINIFE_NO_LONG_LONG
 
-template<>
-struct TypeTraits<long long> {
-    typedef long long magnitude_type;
+    template<>
+    struct TypeTraits<long long> {
+        typedef long long magnitude_type;
 
-    static const char* name() {return "long long";}
-
-#ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_LONG_LONG;}
-#endif
-};
-
-#endif
-
-template<>
-struct TypeTraits<unsigned> {
-    typedef unsigned magnitude_type;
-
-    static const char* name() {return "unsigned";}
+        static const char* name() {return "long long";}
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_UNSIGNED;}
+        static MPI_Datatype mpi_type() {return MPI_LONG_LONG;}
 #endif
-};
+    };
 
-template<>
-struct TypeTraits<std::complex<positX>> {
-    typedef positX magnitude_type;
+#endif
 
-    static const char* name() {return "std::complex<posit>";}
+    template<>
+    struct TypeTraits<unsigned> {
+        typedef unsigned magnitude_type;
+
+        static const char* name() {return "unsigned";}
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return BROKEN;}
+        static MPI_Datatype mpi_type() {return MPI_UNSIGNED;}
 #endif
-};
+    };
 
-template<>
-struct TypeTraits<std::complex<float> > {
-    typedef float magnitude_type;
+    template<>
+    struct TypeTraits<std::complex<positX>> {
+        typedef positX magnitude_type;
 
-    static const char* name() {return "std::complex<float>";}
+        static const char* name() {return "std::complex<posit>";}
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_COMPLEX;}
+        static MPI_Datatype mpi_type() {return BROKEN;}
 #endif
-};
+    };
 
-template<>
-struct TypeTraits<std::complex<double> > {
-    typedef double magnitude_type;
+    template<>
+    struct TypeTraits<std::complex<float> > {
+        typedef float magnitude_type;
 
-    static const char* name() {return "std::complex<double>";}
+        static const char* name() {return "std::complex<float>";}
 
 #ifdef HAVE_MPI
-    static MPI_Datatype mpi_type() {return MPI_DOUBLE_COMPLEX;}
+        static MPI_Datatype mpi_type() {return MPI_COMPLEX;}
 #endif
-};
+    };
 
+    template<>
+    struct TypeTraits<std::complex<double> > {
+        typedef double magnitude_type;
+
+        static const char* name() {return "std::complex<double>";}
+
+#ifdef HAVE_MPI
+        static MPI_Datatype mpi_type() {return MPI_DOUBLE_COMPLEX;}
+#endif
+    };
+
+}//namespace miniFE
 
 #endif
 

@@ -6,6 +6,12 @@
 #define MINIFEPOSIT_JACK_SETTINGS_HPP
 
 #define MINIFE_SCALAR positX
+#define MINIFE_LOCAL_ORDINAL int
+#define MINIFE_GLOBAL_ORDINAL int
+
+#define MINIFE_CSR_MATRIX 1
+
+
 #define MINIFE_DEBUG 1
 #define USE_POSITX 1
 #define MINIFE_FUSED 1

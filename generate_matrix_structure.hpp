@@ -36,7 +36,7 @@
 #include <simple_mesh_description.hpp>
 #include <SparseMatrix_functions.hpp>
 #include <box_utils.hpp>
-#include <utils.hpp>
+#include <utils/utils.hpp>
 
 #ifdef HAVE_MPI
 #include <mpi.h>

@@ -40,8 +40,8 @@
 #include <LockingVector.hpp>
 #endif
 
-#include <TypeTraits.hpp>
-#include <Vector.hpp>
+#include "Vector.hpp"
+#include "TypeTraits.hpp"
 
 namespace miniFE {
 
@@ -190,8 +190,7 @@ void sum_into_vector(size_t num_indices,
 //
     template<typename Vector>
     typename TypeTraits<typename Vector::ScalarType>::magnitude_type
-    dot(const Vector& x,
-        const Vector& y)
+    dot(const Vector& x, const Vector& y)
     {
         int n = x.coefs.size();
 
