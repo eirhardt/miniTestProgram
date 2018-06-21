@@ -305,7 +305,7 @@ namespace miniFE {
                         std::cout << "verifying solution at ~ (0.5, 0.5, 0.5) ..." << std::endl;
                     }
                 }
-                verify_result = verify_solution(mesh, x, tolerance, verify_whole_domain);
+//                verify_result = verify_solution(mesh, x, tolerance, verify_whole_domain);
             }
         }
 

@@ -31,11 +31,11 @@
 #include <cmath>
 #include <limits>
 
-#include <Vector_functions.hpp>
-#include <utils/mytimer.hpp>
+#include "Vector_functions.hpp"
+#include "utils/mytimer.hpp"
 
-#include <utils/outstream.hpp>
-#include <posit/blas.hpp>
+#include "utils/outstream.hpp"
+#include "posit/blas.hpp"
 #include "jack_settings.hpp"
 #include "SparseMatrix_functions.hpp"
 #include "TypeTraits.hpp"

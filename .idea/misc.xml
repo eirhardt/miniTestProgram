@@ -6,7 +6,9 @@
       <file path="$PROJECT_DIR$" />
     </sourceRoots>
     <libraryRoots>
+      <file path="$PROJECT_DIR$/fem" />
       <file path="$PROJECT_DIR$/posit" />
+      <file path="$PROJECT_DIR$/utils" />
     </libraryRoots>
   </component>
   <component name="JavaScriptSettings">

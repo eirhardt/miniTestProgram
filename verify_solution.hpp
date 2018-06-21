@@ -54,8 +54,7 @@ namespace miniFE {
     };
 
     template<typename VectorType>
-    void
-    verify_solution(const simple_mesh_description<typename VectorType::GlobalOrdinalType>& mesh, const VectorType& x)
+    void verify_solution(const simple_mesh_description<typename VectorType::GlobalOrdinalType>& mesh, const VectorType& x)
     {
         typedef typename VectorType::GlobalOrdinalType GlobalOrdinal;
         typedef typename VectorType::ScalarType Scalar;

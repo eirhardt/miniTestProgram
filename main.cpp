@@ -1,5 +1,5 @@
 #include <iostream>
-#include <posit/posit>
+#include "posit/posit"
 #include "jack_settings.hpp"
 
 
@@ -8,18 +8,13 @@
 #include <cstdlib>
 #include <vector>
 
+#include "utils/outstream.hpp"
 
-#include "jack_settings.hpp"
-#include <utils/outstream.hpp>
-
-#ifdef HAVE_MPI
-#include <mpi.h>
-#endif
 
 #include "Box.hpp"
-#include <utils/Parameters.hpp>
-#include <utils/utils.hpp>
-#include <utils/mytimer.hpp>
+#include "utils/Parameters.hpp"
+#include "utils/utils.hpp"
+#include "utils/mytimer.hpp"
 #include "YAML_Doc.hpp"
 #include "BoxPartition.hpp"
 #include "box_utils.hpp"
@@ -58,12 +53,6 @@ int main(int argc, char** argv) {
 
     int numprocs = 1, myproc = 0;
     miniFE::initialize_mpi(argc, argv, numprocs, myproc);
-
-#ifdef HAVE_MPI
-    #ifdef USE_MPI_PCONTROL
-  MPI_Pcontrol(0);
-#endif
-#endif
 
     miniFE::timer_type start_time = miniFE::mytimer();
 
