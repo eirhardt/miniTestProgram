@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-#include "posit"
+#include "posit/posit"
 #include <fstream>
 #include <sstream>
 #include "YAML_Element.hpp"

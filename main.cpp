@@ -14,11 +14,11 @@
 #include "Box.hpp"
 #include "utils/Parameters.hpp"
 #include "utils/utils.hpp"
-#include "utils/mytimer.hpp"
-#include "YAML_Doc.hpp"
-#include "BoxPartition.hpp"
+#include "utils/mytimer.cpp"
+#include "YAML_DOC.cpp"
 #include "box_utils.hpp"
 #include "driver.hpp"
+#include "BoxPartition.hpp"
 
 
 //The following macros should be specified as compile-macros in the

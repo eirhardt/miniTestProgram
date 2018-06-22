@@ -7,9 +7,9 @@
 #include <mpi.h>
 #endif
 
-#include <box_utils.hpp>
-#include <utils/utils.hpp>
-#include <YAML_Doc.hpp>
+#include "box_utils.hpp"
+#include "utils/utils.hpp"
+#include "YAML_Doc.hpp"
 
 namespace miniFE {
 
@@ -145,10 +145,6 @@ namespace miniFE {
                   YAML_Doc& doc)
     {
         int numprocs = 1, myproc = 0;
-#ifdef HAVE_MPI
-        MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
-  MPI_Comm_rank(MPI_COMM_WORLD, &myproc);
-#endif
 
         if (numprocs == 1) {
             return;
@@ -192,10 +188,6 @@ namespace miniFE {
                                   local_box[X][0], local_box[X][1],
                                   local_box[Y][0], local_box[Y][1],
                                   local_box[Z][0], local_box[Z][1]};
-#ifdef HAVE_MPI
-            MPI_Bcast(&grow_info[0], 8, MPI_INT, max_proc, MPI_COMM_WORLD);
-    MPI_Bcast(&shrink_info[0], 8, MPI_INT, min_proc, MPI_COMM_WORLD);
-#endif
 
             int grow_axis = grow_info[0];
             int grow_end = grow_info[1];

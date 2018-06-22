@@ -33,7 +33,6 @@
 
 #include "Vector_functions.hpp"
 #include "utils/mytimer.hpp"
-
 #include "utils/outstream.hpp"
 #include "posit/blas.hpp"
 #include "jack_settings.hpp"

@@ -2,7 +2,7 @@
 #define _BoxPartition_hpp_
 
 #include "Box.hpp"
-
+#include "BoxPartition.cpp"
 /** \brief Recursively split a box into (up-ip) sub-boxes
  */
 void box_partition( int ip , int up , int axis ,
